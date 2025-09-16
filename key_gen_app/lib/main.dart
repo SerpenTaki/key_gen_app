@@ -128,10 +128,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     blurRadius: 3.0,
                     color: Color.fromARGB(255, 0, 0, 0)
                   ),
-
                 ]
               ),
             ),
+            TextButton.icon(onPressed: () => {}, icon: Icon(Icons.account_box), label: const Text("Bottone 1"),),
+            ElevatedButton(
+              onPressed: () => {}, 
+              child: Text('Bottone1'),
+              style: ButtonStyle(
+                foregroundColor: WidgetStatePropertyAll(Colors.red),
+                overlayColor: WidgetStateColor.resolveWith((states) {
+                  // If the button is pressed, return green, otherwise blue
+                  if (states.contains(WidgetState.focused)) { // vecchio metodo
+                    return Colors.green;
+                  }
+                  else if (states.contains(WidgetState.hovered)){
+                    return Colors.blue;
+                  }
+                  else{
+                    return Colors.red;
+                  }
+                }
+                ),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () => {},
+              icon: Icon(Icons.timelapse),
+              label: Text("Bottone2"),
+              style: ElevatedButton.styleFrom( //converte automaticamente in widgetStateColor
+                foregroundColor: Colors.red, //Nuovo metodo
+                backgroundColor: Colors.orange,
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              ),
+            ),
+            OutlinedButton(onPressed: () => {}, child: Text('Ciao')),
           ],
         ),
       ),
