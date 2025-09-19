@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:key_gen_app/widgets/CustomAppBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,14 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.deepPurple,
-        centerTitle: true,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(onPressed: () => {}, icon: Icon(Icons.wallet)),
-        ],
+     // appBar: AppBar(
+     //   title: Text(widget.title),
+     //   backgroundColor: Colors.deepPurple,
+     //   centerTitle: true,
+     //   foregroundColor: Colors.white,
+     //   actions: [
+     //     IconButton(onPressed: () => {}, icon: Icon(Icons.wallet)),
+     //   ],
+     // ),
+      appBar: CustomAppBar(
+        titleText: const Text(
+          "AppBarMia",
+        ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

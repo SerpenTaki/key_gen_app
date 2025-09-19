@@ -1,3 +1,4 @@
+import 'package:key_gen_app/screens/Carta.dart';
 import 'package:flutter/material.dart';
 
 class QuintaPagina extends StatelessWidget {
@@ -35,6 +36,10 @@ class QuintaPagina extends StatelessWidget {
               ),
             ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {Navigator.pushNamed(context, "/Card")},
+        child: Icon(Icons.card_travel),
       ),
     );
   }
