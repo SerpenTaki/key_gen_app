@@ -14,8 +14,18 @@ class Secondapagina extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Hero(
+                tag: "immagine_prova",
+                child: Image.asset('images/purple.jpeg'),
+              ),
+            ),
             Text(
               "SecondPage",
               style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
@@ -38,14 +48,22 @@ class Secondapagina extends StatelessWidget {
             Text(data),
             Image(
               image: AssetImage('images/purple.jpeg'),
-              width: 200, // Imposta la larghezza desiderata
-              height: 200, // Imposta l'altezza desiderata
+              width: 50,
+              // Imposta la larghezza desiderata
+              height: 50,
+              // Imposta l'altezza desiderata
               color: Colors.purple,
               colorBlendMode: BlendMode.exclusion,
-              fit: BoxFit.cover, // Scegli come l'immagine deve adattarsi allo spazio
+              fit: BoxFit.cover,
+              // Scegli come l'immagine deve adattarsi allo spazio
               alignment: Alignment.center,
             ),
-            ElevatedButton(onPressed: () {Navigator.pushNamed(context, '/TerzaPagina');}, child: Text("Terza Pagina")),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/TerzaPagina');
+              },
+              child: Text("Terza Pagina"),
+            ),
           ],
         ),
       ),

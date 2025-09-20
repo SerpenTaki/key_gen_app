@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:key_gen_app/screens/_tabs.dart';
 
 
 class Sliddare extends StatelessWidget {
@@ -43,7 +44,8 @@ class Sliddare extends StatelessWidget {
                   crossAxisCount: 2, crossAxisSpacing: 8, mainAxisSpacing: 8))
         ],
       ),
-
+      floatingActionButton: FloatingActionButton(onPressed: () {Navigator.pushNamed(context, "/Tabs");},
+      child: Icon(Icons.next_week),),
     );
   }
 }
