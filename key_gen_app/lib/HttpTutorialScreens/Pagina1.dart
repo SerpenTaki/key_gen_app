@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:key_gen_app/models/album_model.dart';
 
+import '../services/auth.dart';
+
 Future<List<Album>> fetchAlbum() async {
   var response = await http.get(
     Uri.parse("http://jsonplaceholder.typicode.com/albums"),
@@ -40,10 +42,13 @@ class _Pagina1State extends State<Pagina1> {
     albums = fetchAlbum();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("HTTP chiamate app")),
+      appBar: AppBar(title: const Text("HTTP chiamate app"),
+      ),
       body: FutureBuilder<List<Album>>( // Aggiunto il tipo generico
         future: albums,
         builder: (context, snapshot) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import '../services/auth.dart';
+
 class Primapagina extends StatefulWidget {
   const Primapagina({super.key});
 
@@ -14,10 +16,20 @@ class _PrimapaginaState extends State<Primapagina> {
   Color _color = Colors.deepPurple;
   double _padding = 8;
 
+  Future<void> signOut() async{
+    await Auth().signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Prima Pagina")),
+      appBar: AppBar(title: Text("Prima Pagina"),
+      actions: [
+        IconButton(onPressed: (){
+          signOut();
+          //Navigator.pop(context);
+        }, icon: const Icon(Icons.logout)),
+      ],),
       body: Center(
         child: AnimatedPadding(
           duration: const Duration(seconds: 1),

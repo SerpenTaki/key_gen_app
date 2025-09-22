@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "643877734928",
+    "project_id": "prova-flutter-gdp",
+    "storage_bucket": "prova-flutter-gdp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643877734928:android:a5be0a0c359f9bee405895",
+        "android_client_info": {
+          "package_name": "com.example.key_gen_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDfP_4bIUWqfYJLYtYgcrynJNnqHtKzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:key_gen_app/screens/AuthPage.dart';
 import 'package:key_gen_app/screens/PrimaPagina.dart';
 import 'package:key_gen_app/screens/SecondaPagina.dart';
 import 'package:key_gen_app/screens/_terza_pagina.dart';
@@ -41,6 +42,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => Materialdui());
       case '/Pagina1':
         return MaterialPageRoute(builder: (context) => Pagina1());
+      case '/AuthPagina':
+        return MaterialPageRoute(builder: (context) => AuthPage());
       default:
         return _errorRoute();
     }

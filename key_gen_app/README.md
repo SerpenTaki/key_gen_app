@@ -1,6 +1,7 @@
 # key_gen_app
 
-A new Flutter project.
+I diversi main eseguono cose diverse ovviamente, guardare il main2 per la maggior parte delle funzioni
+dato che è collegato a diverse pagine
 
 ## Getting Started
 
