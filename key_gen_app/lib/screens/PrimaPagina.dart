@@ -50,6 +50,7 @@ class _PrimapaginaState extends State<Primapagina> {
                 ),
                 child: const Text("Cambia Pagina"),
               ),
+              ElevatedButton(onPressed: (){Navigator.pushNamed(context, "/Pagina1");}, child: Text("Pagine chiamate http")),
               AnimatedContainer(
                 width: _width,
                 height: _height,
