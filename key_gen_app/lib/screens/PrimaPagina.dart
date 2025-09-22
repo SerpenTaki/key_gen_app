@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:key_gen_app/providers/counter.dart';
+import 'package:provider/provider.dart';
 
 import '../services/auth.dart';
 
@@ -15,21 +17,27 @@ class _PrimapaginaState extends State<Primapagina> {
   double _height = 250;
   Color _color = Colors.deepPurple;
   double _padding = 8;
+  late int numero;
 
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     await Auth().signOut();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Prima Pagina"),
-      actions: [
-        IconButton(onPressed: (){
-          signOut();
-          //Navigator.pop(context);
-        }, icon: const Icon(Icons.logout)),
-      ],),
+      appBar: AppBar(
+        title: Text("Prima Pagina"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              signOut();
+              //Navigator.pop(context);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: Center(
         child: AnimatedPadding(
           duration: const Duration(seconds: 1),
@@ -40,8 +48,53 @@ class _PrimapaginaState extends State<Primapagina> {
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "FirstPage",
+                "FirstPage & ${context.watch<Counter>().count}",
                 style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<Counter>().plusOne();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.deepPurpleAccent,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 40,
+                      ),
+                    ),
+                    child: Text(
+                      "+1",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<Counter>().minusOne();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.deepPurpleAccent,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 40,
+                      ),
+                    ),
+                    child: Text(
+                      "-1",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               ElevatedButton(
                 onPressed: () {
@@ -62,7 +115,12 @@ class _PrimapaginaState extends State<Primapagina> {
                 ),
                 child: const Text("Cambia Pagina"),
               ),
-              ElevatedButton(onPressed: (){Navigator.pushNamed(context, "/Pagina1");}, child: Text("Pagine chiamate http")),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/Pagina1");
+                },
+                child: Text("Pagine chiamate http"),
+              ),
               AnimatedContainer(
                 width: _width,
                 height: _height,
@@ -80,10 +138,16 @@ class _PrimapaginaState extends State<Primapagina> {
             final random = Random();
             _width = random.nextInt(250).toDouble();
             _height = random.nextInt(250).toDouble();
-            _color = Color.fromRGBO(random.nextInt(255), random.nextInt(255), random.nextInt(255), 1);
+            _color = Color.fromRGBO(
+              random.nextInt(255),
+              random.nextInt(255),
+              random.nextInt(255),
+              1,
+            );
             _padding = random.nextInt(50).toDouble();
           });
-        }, child: Icon(Icons.animation),
+        },
+        child: Icon(Icons.animation),
       ),
     );
   }

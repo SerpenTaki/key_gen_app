@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:key_gen_app/screens/_terza_pagina.dart';
+import 'package:key_gen_app/providers/counter.dart';
+import 'package:provider/provider.dart';
 
 class Secondapagina extends StatelessWidget {
   const Secondapagina({super.key, required this.data});
@@ -9,7 +12,12 @@ class Secondapagina extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Seconda Pagina")),
+      appBar: AppBar(title: Text("Seconda Pagina"),
+      actions: [
+        TextButton(onPressed: () {context.read<Counter>().plusOne();}, child: Text("+1")),
+        TextButton(onPressed: () {context.read<Counter>().minusOne();}, child: Text("-1")),
+      ],
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,
