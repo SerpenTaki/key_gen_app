@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:key_gen_app/models/album_model.dart';
@@ -50,9 +51,24 @@ class _Pagina1State extends State<Pagina1> {
     var size = MediaQuery.of(context).size;
     print(size.width);
 
+    //Adative layout
+    print(defaultTargetPlatform);
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      print("Android");
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      print("iOS");
+    }
+
     return Scaffold(
       backgroundColor: size.width < 600 ? Colors.white : Colors.green,
-      appBar: AppBar(title: const Text("HTTP chiamate app"),
+      appBar: AppBar(title: Text(defaultTargetPlatform == TargetPlatform.android ? "HTTP chiamate app Android" : " HTTP chiamate app iOS"),
+        actions: <Widget>[
+          if (defaultTargetPlatform == TargetPlatform.android)
+             IconButton(onPressed: (){}, icon: const Icon(Icons.android))
+          else if (defaultTargetPlatform == TargetPlatform.iOS)
+             IconButton(onPressed: (){}, icon: const Icon(Icons.apple))
+        ],
       ),
       body: FutureBuilder<List<Album>>( // Aggiunto il tipo generico
         future: albums,
