@@ -53,7 +53,7 @@ class Secondapagina extends StatelessWidget {
               ),
               child: Text("Cambia Pagina"),
             ),
-            Text(data),
+            Text(data), // Mostra l'argomento che gli passiamo in creazione
             Image(
               image: AssetImage('images/purple.jpeg'),
               width: 50,

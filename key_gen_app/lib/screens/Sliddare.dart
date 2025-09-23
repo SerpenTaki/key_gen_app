@@ -14,7 +14,7 @@ class Sliddare extends StatelessWidget {
           SliverAppBar(
             floating: true, //fa riapparire la appbar in alto una volta scrollato
             //pinned: true, //fa rimanere sempre visibile la appbar
-            expandedHeight: 50, //fa espandere la appbar in base al contenuto
+            expandedHeight: -50, //fa espandere la appbar in base al contenuto
             backgroundColor: Colors.deepPurple,
             foregroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(

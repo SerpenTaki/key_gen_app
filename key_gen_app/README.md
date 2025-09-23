@@ -3,6 +3,10 @@
 I diversi main eseguono cose diverse ovviamente, guardare il main2 per la maggior parte delle funzioni
 dato che è collegato a diverse pagine
 
+## Per il web
+```Bash
+flutter run -t lib/main2.dart -d chrome
+```
 ## Getting Started
 
 This project is a starting point for a Flutter application.
