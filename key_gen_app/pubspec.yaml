@@ -42,6 +42,8 @@ dependencies:
   location: ^8.0.1
   provider: ^6.1.5+1
   cloud_firestore: ^6.0.2
+  nfc_manager: ^4.1.1
+  nfc_manager_ndef: ^1.1.0
 
 dev_dependencies:
   flutter_test:

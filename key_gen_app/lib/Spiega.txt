@@ -1,0 +1,118 @@
+Certamente! Per leggere il chip NFC di una carta d'identità elettronica (CIE) avresti bisogno di librerie specializzate come quelle che gestiscono il protocollo MRTD (Machine Readable Travel Document), che non sono disponibili direttamente nelle API standard di Dart/Flutter.
+Tuttavia, posso fornirti un esempio di codice Dart/Flutter che usa la libreria standard nfc_manager (la più comune per Flutter) per rilevare un qualsiasi tag NFC e leggere il suo messaggio NDEF, che è la base di partenza per qualsiasi lettura NFC.
+Codice Dart/Flutter per leggere un Tag NFC
+Questo codice è un esempio di base che avvia una sessione di scansione NFC e stampa i dati NDEF trovati:
+import 'package:flutter/material.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: NfcReaderScreen(),
+    );
+  }
+}
+
+class NfcReaderScreen extends StatefulWidget {
+  const NfcReaderScreen({super.key});
+
+  @override
+  State<NfcReaderScreen> createState() => _NfcReaderScreenState();
+}
+
+class _NfcReaderScreenState extends State<NfcReaderScreen> {
+  String _tagData = 'Avvicina la carta al telefono per leggere il tag.';
+
+  Future<void> _startNfcScan() async {
+    // 1. Controlla se l'NFC è supportato e attivo.
+    bool isAvailable = await NfcManager.instance.isAvailable();
+    if (!isAvailable) {
+      setState(() {
+        _tagData = 'NFC non disponibile o disattivato.';
+      });
+      return;
+    }
+
+    // 2. Avvia la sessione di scansione.
+    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+      var ndef = Ndef.from(tag);
+      if (ndef == null || ndef.cachedMessage == null) {
+        setState(() {
+          _tagData = 'Tag NFC rilevato, ma non contiene un messaggio NDEF standard.';
+        });
+        return;
+      }
+
+      // 3. Estrai e mostra il primo record NDEF (testo o URI).
+      var record = ndef.cachedMessage!.records.first;
+      String payload = 'Nessun payload di testo/URI trovato.';
+
+      if (record.typeNameFormat == NdefTypeNameFormat.nfcWellKnown) {
+        // Gestione di un record di testo (RTD_TEXT)
+        if (record.type.toList().toString() == [84].toString()) { // 'T'
+          payload = String.fromCharCodes(record.payload.sublist(3)); // Salta i byte del codice lingua
+        }
+        // Gestione di un record URI (RTD_URI)
+        else if (record.type.toList().toString() == [85].toString()) { // 'U'
+           payload = String.fromCharCodes(record.payload.sublist(1));
+        }
+      }
+
+      setState(() {
+        _tagData = 'Dati letti:\nTipo tag: ${tag.handle}\nMessaggio NDEF: $payload';
+      });
+
+      // 4. Termina la sessione NFC dopo la lettura.
+      NfcManager.instance.stopSession();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Lettore NFC di base'),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                _tagData,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton.icon(
+                onPressed: _startNfcScan,
+                icon: const Icon(Icons.nfc),
+                label: const Text('Avvia Scansione NFC'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Nota Importante per la CIE
+Per leggere i dati protetti di documenti come la Carta d'Identità Elettronica (CIE) non basta la semplice lettura NDEF:
+ * Devi prima eseguire la scansione OCR della MRZ (Machine Readable Zone, la banda di testo sul retro) per ottenere le chiavi di accesso (PIN parziale, data di nascita, scadenza del documento).
+ * Devi usare queste chiavi per eseguire l'autenticazione tramite protocollo BAC/PACE (Basic/Password Authenticated Control) per sbloccare il chip.
+ * Infine, puoi leggere i dati crittografati.
+Questo processo richiede librerie specifiche, come l'SDK di IPZS (Istituto Poligrafico e Zecca dello Stato) per la CIE italiana.
